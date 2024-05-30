@@ -1,0 +1,58 @@
+<h1>Lista de hospitales</h1>
+
+<div style="padding: 16px;">
+    <table mat-table [dataSource]="hospitals" class="mat-elevation-z8" style="width: 100%;">
+        <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef> ID </th>
+            <td mat-cell *matCellDef="let hospital"> {{hospital.id}} </td>
+        </ng-container>
+        <ng-container matColumnDef="nombre">
+            <th mat-header-cell *matHeaderCellDef> Nombre </th>
+            <td mat-cell *matCellDef="let hospital"> {{hospital.nombre}} </td>
+        </ng-container>
+        <ng-container matColumnDef="direccion">
+            <th mat-header-cell *matHeaderCellDef> Dirección </th>
+            <td mat-cell *matCellDef="let hospital"> {{hospital.direccion}} </td>
+        </ng-container>
+        <ng-container matColumnDef="acciones">
+            <th mat-header-cell *matHeaderCellDef> Acciones </th>
+            <td mat-cell *matCellDef="let hospital">
+              <a mat-button color="primary" [routerLink]="['/hospitales-editar', hospital.id]">Editar</a>
+              <button mat-button color="warn" (click)="deleteHospital(hospital.id)">Eliminar</button>
+            </td>
+          </ng-container>        
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+</div>
+
+
+<!-- Reactive Form -->
+<form [formGroup]="profileForm">
+    <label>
+        First Name:
+        <input type="text" formControlName="firstName">
+    </label>
+    <label>
+        Last Name:
+        <input type="text" formControlName="lastName">
+    </label>
+</form>
+
+<p *ngIf="profileForm.valid">Siuuu</p>
+<p *ngIf="!profileForm.valid">NO</p>
+
+<p>{{this.profileForm.controls.firstName.value}}</p>
+
+
+<!-- Template Driven Form -->
+<!-- <form #profileForm="ngForm" (ngSubmit)="onSubmit()">
+    <div>
+        <label for="name">Nombre:</label>
+        <input type="text" id="name" [(ngModel)]="profile.name" name="name" required>
+    </div>
+    <button type="submit" [disabled]="!profileForm.form.valid">Enviar</button>
+</form>
+    
+<p>Valor del formulario: {{ profile | json }}</p> -->
+      
